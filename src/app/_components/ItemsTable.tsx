@@ -1,7 +1,7 @@
 "use client";
 
 import { PlusIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { UseFormGetValues, UseFormReturn, UseFormSetValue } from "react-hook-form";
 import { Button } from "~/components/ui/button";
 import type { InvoiceObjectType, tableItem } from "~/types";
@@ -12,13 +12,13 @@ const TableRow = ({ item, setValue, getValues }: { item: tableItem, setValue: Us
 
     const currency = getValues("currency.value");
 
-    interface recalculatTotalProps  {
-        getValues : UseFormGetValues<InvoiceObjectType>,
-        setValue : UseFormSetValue<InvoiceObjectType>,
-        index : number,
+    interface recalculatTotalProps {
+        getValues: UseFormGetValues<InvoiceObjectType>,
+        setValue: UseFormSetValue<InvoiceObjectType>,
+        index: number,
     }
 
-    const recalculatTotal = ({ getValues, setValue , index } : recalculatTotalProps) => {
+    const recalculatTotal = ({ getValues, setValue, index }: recalculatTotalProps) => {
 
         // update single row
         const quantity = Number(getValues(`items.${index}.quantity`));
@@ -27,6 +27,11 @@ const TableRow = ({ item, setValue, getValues }: { item: tableItem, setValue: Us
         setValue(`items.${index}.amount`, quantity * unit_cost);
 
         // update sub-total and total
+        const items = getValues("items");
+
+        const totalUnitCost = items.reduce((total, item) => total + (item.quantity * item.unit_cost), 0);
+        setValue(`total`, totalUnitCost);
+
     }
     return (
         <tr className="grid grid-cols-12">
@@ -38,12 +43,17 @@ const TableRow = ({ item, setValue, getValues }: { item: tableItem, setValue: Us
                     onChange={(e) => {
                         const target = e.currentTarget as HTMLInputElement;
                         setValue(`items.${item.index}.quantity`, Number(target.value))
-                        recalculatTotal({setValue , getValues , index : item.index})
+                        recalculatTotal({ setValue, getValues, index: item.index })
                     }}
                     type="number" target={`items.${item.index}.quantity`} className="rounded-e-none rounded-s-none" />
             </td>
             <td className="col-span-2">
                 <CustomForm
+                    onChange={(e) => {
+                        const target = e.currentTarget as HTMLInputElement;
+                        setValue(`items.${item.index}.unit_cost`, Number(target.value))
+                        recalculatTotal({ setValue, getValues, index: item.index })
+                    }}
                     type="number" target={`items.${item.index}.unit_cost`} className="rounded-e-none rounded-s-none" />
             </td>
             <td className="col-span-2 flex justify-end items-center pr-1">
@@ -59,19 +69,12 @@ interface ItemTableProps {
 
 const ItemsTable = ({ form }: ItemTableProps) => {
 
-    form.setValue("amount_header" , "")
-    const { setValue, getValues, formState: { errors } } = form;
+    // const { setValue, getValues, formState: { errors } } = form;
 
     const tableItems = form.watch("items");
-    const title = form.watch();
-    console.log(tableItems);
+    const total = form.watch("total");
 
     const [itemsCounter, setItemsCounter] = useState(1)
-
-    useEffect(() => {
-        console.log("BASE");
-    }, [title])
-
 
     return (
         <>
@@ -123,6 +126,9 @@ const ItemsTable = ({ form }: ItemTableProps) => {
                 <PlusIcon />
                 Add Line
             </Button>
+            <div>
+                total : {total}
+            </div>
         </>
     );
 }

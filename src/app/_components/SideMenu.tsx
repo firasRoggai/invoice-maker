@@ -2,17 +2,33 @@ import { ArrowDownToLine } from "lucide-react";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
+import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
-import type { InvoiceObjectType } from "~/types";
+import type { InvoiceObjectType, reactSelect } from "~/types";
+// import options from "~/lib/currencies.json"
 
 interface SideMenuProps {
     form: UseFormReturn<InvoiceObjectType>
 }
 
-// react-select
+const filterColors = (inputValue: string , options : reactSelect[]) => {
+    return options.filter((i) =>
+        i.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+};
+
+const promiseOptions = async (inputValue : string) => {
+    const optionsRaw= await fetch("/api/currencies");
+
+    const options = await optionsRaw.json() as reactSelect[];
+
+    return filterColors(inputValue , options);
+};
+
 const options = [
     { value: '$', label: 'USD ($)' },
     { value: '£', label: 'EURO (£)' },
+    { value: '¥', label: 'JPY ($)' },
     { value: 'BHD', label: 'BHD' }
 ]
 
@@ -46,7 +62,7 @@ const SideMenu = ({ form }: SideMenuProps) => {
                         name="currency"
                         render={({ field }) => {
                             return (
-                                <Select instanceId={""} {...field} options={options} defaultValue={{ value: '$', label: 'USD ($)' }} />
+                                <AsyncSelect {...field} cacheOptions defaultOptions={options} loadOptions={promiseOptions} />
                             )
                         }} />
                 </div>
@@ -56,7 +72,8 @@ const SideMenu = ({ form }: SideMenuProps) => {
                     <div className='py-1 uppercase'>TYPE</div>
                     <Select
                         options={typeOptions}
-                        onChange={(value) => { form.setValue('header' , value?.value ?? "") }}
+                        instanceId={"react-select-5-live-region"}
+                        onChange={(value) => { form.setValue('header', value?.value ?? "") }}
                         defaultValue={{ value: 'invoice', label: 'Invoice' }} />
                 </div>
 

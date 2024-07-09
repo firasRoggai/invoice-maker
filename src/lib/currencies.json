@@ -1,0 +1,646 @@
+[
+  {
+    "label": "AED (د.إ.)",
+    "value": "AED"
+  },
+  {
+    "label": "AFN (؋)",
+    "value": "AFN"
+  },
+  {
+    "label": "ALL (L)",
+    "value": "ALL"
+  },
+  {
+    "label": "AMD (դր)",
+    "value": "AMD"
+  },
+  {
+    "label": "ANG (ƒ)",
+    "value": "ANG"
+  },
+  {
+    "label": "AOA (Kz)",
+    "value": "AOA"
+  },
+  {
+    "label": "ARS ($)",
+    "value": "ARS"
+  },
+  {
+    "label": "AUD ($)",
+    "value": "AUD"
+  },
+  {
+    "label": "AWG (ƒ)",
+    "value": "AWG"
+  },
+  {
+    "label": "AZN (₼)",
+    "value": "AZN"
+  },
+  {
+    "label": "BAM (КМ)",
+    "value": "BAM"
+  },
+  {
+    "label": "BBD ($)",
+    "value": "BBD"
+  },
+  {
+    "label": "BDT (৳)",
+    "value": "BDT"
+  },
+  {
+    "label": "BGN (лв.)",
+    "value": "BGN"
+  },
+  {
+    "label": "BHD (د.ب.)",
+    "value": "BHD"
+  },
+  {
+    "label": "BIF (FBu)",
+    "value": "BIF"
+  },
+  {
+    "label": "BMD ($)",
+    "value": "BMD"
+  },
+  {
+    "label": "BND ($)",
+    "value": "BND"
+  },
+  {
+    "label": "BOB (Bs.)",
+    "value": "BOB"
+  },
+  {
+    "label": "BRL (R$)",
+    "value": "BRL"
+  },
+  {
+    "label": "BSD ($)",
+    "value": "BSD"
+  },
+  {
+    "label": "BTN (Nu.)",
+    "value": "BTN"
+  },
+  {
+    "label": "BWP (P)",
+    "value": "BWP"
+  },
+  {
+    "label": "BYN (Br)",
+    "value": "BYN"
+  },
+  {
+    "label": "BZD ($)",
+    "value": "BZD"
+  },
+  {
+    "label": "CAD (CA$)",
+    "value": "CAD"
+  },
+  {
+    "label": "CDF (FC)",
+    "value": "CDF"
+  },
+  {
+    "label": "CHF (₣)",
+    "value": "CHF"
+  },
+  {
+    "label": "CKD ($)",
+    "value": "CKD"
+  },
+  {
+    "label": "CLP (CL$)",
+    "value": "CLP"
+  },
+  {
+    "label": "CNY (¥元)",
+    "value": "CNY"
+  },
+  {
+    "label": "COP ($)",
+    "value": "COP"
+  },
+  {
+    "label": "CRC (₡)",
+    "value": "CRC"
+  },
+  {
+    "label": "CUC ($)",
+    "value": "CUC"
+  },
+  {
+    "label": "CUP ($MN)",
+    "value": "CUP"
+  },
+  {
+    "label": "CVE (CV$)",
+    "value": "CVE"
+  },
+  {
+    "label": "CZK (Kč)",
+    "value": "CZK"
+  },
+  {
+    "label": "DKK (kr.)",
+    "value": "DKK"
+  },
+  {
+    "label": "DOP ($)",
+    "value": "DOP"
+  },
+  {
+    "label": "DZD (د.ج.)",
+    "value": "DZD"
+  },
+  {
+    "label": "EGP (ج.م.)",
+    "value": "EGP"
+  },
+  {
+    "label": "ERN (Nfk)",
+    "value": "ERN"
+  },
+  {
+    "label": "ETB (Br)",
+    "value": "ETB"
+  },
+  {
+    "label": "EUR (€)",
+    "value": "EUR"
+  },
+  {
+    "label": "FJD ($)",
+    "value": "FJD"
+  },
+  {
+    "label": "FKP (£)",
+    "value": "FKP"
+  },
+  {
+    "label": "FOK (kr)",
+    "value": "FOK"
+  },
+  {
+    "label": "GBP (£)",
+    "value": "GBP"
+  },
+  {
+    "label": "GEL (₾)",
+    "value": "GEL"
+  },
+  {
+    "label": "GGP (£)",
+    "value": "GGP"
+  },
+  {
+    "label": "GHS (GH₵)",
+    "value": "GHS"
+  },
+  {
+    "label": "GIP (£)",
+    "value": "GIP"
+  },
+  {
+    "label": "GMD (D)",
+    "value": "GMD"
+  },
+  {
+    "label": "GNF (FG)",
+    "value": "GNF"
+  },
+  {
+    "label": "GTQ (Q)",
+    "value": "GTQ"
+  },
+  {
+    "label": "GYD ($)",
+    "value": "GYD"
+  },
+  {
+    "label": "HKD ($)",
+    "value": "HKD"
+  },
+  {
+    "label": "HNL (L)",
+    "value": "HNL"
+  },
+  {
+    "label": "HRK (kn)",
+    "value": "HRK"
+  },
+  {
+    "label": "HTG (G)",
+    "value": "HTG"
+  },
+  {
+    "label": "HUF (Ft)",
+    "value": "HUF"
+  },
+  {
+    "label": "IDR (Rp)",
+    "value": "IDR"
+  },
+  {
+    "label": "ILS (₪)",
+    "value": "ILS"
+  },
+  {
+    "label": "IMP (£)",
+    "value": "IMP"
+  },
+  {
+    "label": "INR (₹)",
+    "value": "INR"
+  },
+  {
+    "label": "IQD (د.ع.)",
+    "value": "IQD"
+  },
+  {
+    "label": "IRR (﷼)",
+    "value": "IRR"
+  },
+  {
+    "label": "ISK (kr)",
+    "value": "ISK"
+  },
+  {
+    "label": "JEP (£)",
+    "value": "JEP"
+  },
+  {
+    "label": "JMD ($)",
+    "value": "JMD"
+  },
+  {
+    "label": "JOD (د.أ.)",
+    "value": "JOD"
+  },
+  {
+    "label": "JPY (¥)",
+    "value": "JPY"
+  },
+  {
+    "label": "KES (KSh)",
+    "value": "KES"
+  },
+  {
+    "label": "KGS (с)",
+    "value": "KGS"
+  },
+  {
+    "label": "KHR (៛)",
+    "value": "៛"
+  },
+  {
+    "label": "KMF (CF)",
+    "value": "KMF"
+  },
+  {
+    "label": "KPW (₩)",
+    "value": "KPW"
+  },
+  {
+    "label": "KRW (₩)",
+    "value": "KRW"
+  },
+  {
+    "label": "KWD (د.ك.)",
+    "value": "KWD"
+  },
+  {
+    "label": "KYD ($)",
+    "value": "KYD"
+  },
+  {
+    "label": "KZT (₸)",
+    "value": "KZT"
+  },
+  {
+    "label": "LAK (₭)",
+    "value": "LAK"
+  },
+  {
+    "label": "LBP (ل.ل.)",
+    "value": "LBP"
+  },
+  {
+    "label": "LKR (Rs)",
+    "value": "LKR"
+  },
+  {
+    "label": "LRD ($)",
+    "value": "LRD"
+  },
+  {
+    "label": "LSL (L)",
+    "value": "LSL"
+  },
+  {
+    "label": "LYD (ل.د.)",
+    "value": "LYD"
+  },
+  {
+    "label": "MAD (د.م.)",
+    "value": "MAD"
+  },
+  {
+    "label": "MDL (L)",
+    "value": "MDL"
+  },
+  {
+    "label": "MGA (Ar)",
+    "value": "MGA"
+  },
+  {
+    "label": "MKD (ден)",
+    "value": "MKD"
+  },
+  {
+    "label": "MMK (K)",
+    "value": "MMK"
+  },
+  {
+    "label": "MNT (₮)",
+    "value": "MNT"
+  },
+  {
+    "label": "MOP (MOP$)",
+    "value": "MOP"
+  },
+  {
+    "label": "MRU (UM)",
+    "value": "MRU"
+  },
+  {
+    "label": "MUR (Rs)",
+    "value": "MUR"
+  },
+  {
+    "label": "MVR (Rf)",
+    "value": "MVR"
+  },
+  {
+    "label": "MWK (MK)",
+    "value": "MWK"
+  },
+  {
+    "label": "MXN ($)",
+    "value": "MXN"
+  },
+  {
+    "label": "MYR (RM)",
+    "value": "MYR"
+  },
+  {
+    "label": "MZN (MTn)",
+    "value": "MZN"
+  },
+  {
+    "label": "NAD ($)",
+    "value": "NAD"
+  },
+  {
+    "label": "NGN (₦)",
+    "value": "NGN"
+  },
+  {
+    "label": "NIO (C$)",
+    "value": "NIO"
+  },
+  {
+    "label": "NOK (kr)",
+    "value": "NOK"
+  },
+  {
+    "label": "NPR (Rs)",
+    "value": "NPR"
+  },
+  {
+    "label": "NZD ($)",
+    "value": "NZD"
+  },
+  {
+    "label": "OMR (ر.ع.)",
+    "value": "OMR"
+  },
+  {
+    "label": "PAB (B/.)",
+    "value": "PAB"
+  },
+  {
+    "label": "PEN (S/.)",
+    "value": "PEN"
+  },
+  {
+    "label": "PGK (K)",
+    "value": "PGK"
+  },
+  {
+    "label": "PHP (₱)",
+    "value": "PHP"
+  },
+  {
+    "label": "PKR (Rs)",
+    "value": "PKR"
+  },
+  {
+    "label": "PLN (zł)",
+    "value": "PLN"
+  },
+  {
+    "label": "PYG (₲)",
+    "value": "PYG"
+  },
+  {
+    "label": "QAR (ر.ق.)",
+    "value": "QAR"
+  },
+  {
+    "label": "RON (L)",
+    "value": "RON"
+  },
+  {
+    "label": "RSD (дин.)",
+    "value": "RSD"
+  },
+  {
+    "label": "RUB (₽)",
+    "value": "RUB"
+  },
+  {
+    "label": "RWF (FRw)",
+    "value": "FRw"
+  },
+  {
+    "label": "SAR (ر.س.)",
+    "value": "SAR"
+  },
+  {
+    "label": "SBD ($)",
+    "value": "SBD"
+  },
+  {
+    "label": "SCR (Rs)",
+    "value": "SCR"
+  },
+  {
+    "label": "SDG (ج.س.)",
+    "value": "SDG"
+  },
+  {
+    "label": "SEK (kr)",
+    "value": "SEK"
+  },
+  {
+    "label": "SGD ($)",
+    "value": "SGD"
+  },
+  {
+    "label": "SHP (£)",
+    "value": "SHP"
+  },
+  {
+    "label": "SLL (Le)",
+    "value": "SLL"
+  },
+  {
+    "label": "SOS (Sh)",
+    "value": "SOS"
+  },
+  {
+    "label": "SRD ($)",
+    "value": "SRD"
+  },
+  {
+    "label": "SSP (£)",
+    "value": "SSP"
+  },
+  {
+    "label": "STN (Db)",
+    "value": "STN"
+  },
+  {
+    "label": "SVC ($)",
+    "value": "SVC"
+  },
+  {
+    "label": "SYP (ل.س.)",
+    "value": "SYP"
+  },
+  {
+    "label": "SZL (L)",
+    "value": "SZL"
+  },
+  {
+    "label": "THB (฿)",
+    "value": "THB"
+  },
+  {
+    "label": "TJS (ЅМ)",
+    "value": "TJS"
+  },
+  {
+    "label": "TMT (m)",
+    "value": "TMT"
+  },
+  {
+    "label": "TND (د.ت.)",
+    "value": "TND"
+  },
+  {
+    "label": "TOP (T$)",
+    "value": "TOP"
+  },
+  {
+    "label": "TRY (₺)",
+    "value": "TRY"
+  },
+  {
+    "label": "TTD ($)",
+    "value": "TTD"
+  },
+  {
+    "label": "TWD ($)",
+    "value": "TWD"
+  },
+  {
+    "label": "TZS (TSh)",
+    "value": "TZS"
+  },
+  {
+    "label": "UAH (₴)",
+    "value": "UAH"
+  },
+  {
+    "label": "UGX (USh)",
+    "value": "UGX"
+  },
+  {
+    "label": "USD ($)",
+    "value": "USD"
+  },
+  {
+    "label": "UYU ($U)",
+    "value": "UYU"
+  },
+  {
+    "label": "UZS (сўм)",
+    "value": "UZS"
+  },
+  {
+    "label": "VEF (Bs.F.)",
+    "value": "VEF"
+  },
+  {
+    "label": "VND (₫)",
+    "value": "VND"
+  },
+  {
+    "label": "VUV (VT)",
+    "value": "VUV"
+  },
+  {
+    "label": "WST (WS$)",
+    "value": "WST"
+  },
+  {
+    "label": "XAF (FCFA)",
+    "value": "XAF"
+  },
+  {
+    "label": "XCD ($)",
+    "value": "XCD"
+  },
+  {
+    "label": "XOF (CFA)",
+    "value": "XOF"
+  },
+  {
+    "label": "XPF (CFP)",
+    "value": "XPF"
+  },
+  {
+    "label": "YER (ر.ي.)",
+    "value": "YER"
+  },
+  {
+    "label": "ZAR (R)",
+    "value": "ZAR"
+  },
+  {
+    "label": "ZMW (ZK)",
+    "value": "ZMW"
+  },
+  {
+    "label": "ZWL ($)",
+    "value": "ZWL"
+  }
+]

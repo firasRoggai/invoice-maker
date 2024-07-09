@@ -1,4 +1,4 @@
-import type { ChangeEvent, ChangeEventHandler, FormEvent, HTMLInputTypeAttribute, SyntheticEvent } from "react";
+import type { FormEvent, HTMLInputTypeAttribute } from "react";
 import { z } from "zod";
 
 const optionalTitleSchema = z.string()
@@ -93,6 +93,11 @@ const InvoiceObject = z.object({
 type InvoiceObjectType = z.infer<typeof InvoiceObject>;
 type InvoiceKey = keyof typeof InvoiceObject.shape;
 
+export type reactSelect = {
+    label: string,
+    value: string,
+}
+
 export { InvoiceObject };
 export type tableItem = z.infer<typeof itemSchema>
-export type { InvoiceObjectType, InvoiceKey, customFormProps };
+export type { InvoiceKey, InvoiceObjectType, customFormProps };
