@@ -6,33 +6,13 @@ import type { UseFormGetValues, UseFormReturn, UseFormSetValue } from "react-hoo
 import { Button } from "~/components/ui/button";
 import type { InvoiceObjectType, tableItem } from "~/types";
 import CustomForm from "./CustomForm";
+import { recalculatTotal } from "~/lib/utils";
 
 
 const TableRow = ({ item, setValue, getValues }: { item: tableItem, setValue: UseFormSetValue<InvoiceObjectType>, getValues: UseFormGetValues<InvoiceObjectType> }) => {
 
     const currency = getValues("currency.value");
 
-    interface recalculatTotalProps {
-        getValues: UseFormGetValues<InvoiceObjectType>,
-        setValue: UseFormSetValue<InvoiceObjectType>,
-        index: number,
-    }
-
-    const recalculatTotal = ({ getValues, setValue, index }: recalculatTotalProps) => {
-
-        // update single row
-        const quantity = Number(getValues(`items.${index}.quantity`));
-        const unit_cost = Number(getValues(`items.${index}.unit_cost`));
-
-        setValue(`items.${index}.amount`, quantity * unit_cost);
-
-        // update sub-total and total
-        const items = getValues("items");
-
-        const totalUnitCost = items.reduce((total, item) => total + (item.quantity * item.unit_cost), 0);
-        setValue(`total`, totalUnitCost);
-
-    }
     return (
         <tr className="grid grid-cols-12">
             <td className="col-span-6">
@@ -122,7 +102,7 @@ const ItemsTable = ({ form }: ItemTableProps) => {
 
                     setItemsCounter(itemsCounter + 1)
                 }}
-                className="flex items-center justify-center">
+                className="flex items-center justify-center mt-3">
                 <PlusIcon />
                 Add Line
             </Button>
