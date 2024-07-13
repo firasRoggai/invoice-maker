@@ -110,7 +110,7 @@ const PriceAdjustment = () => {
                     (Object.keys(fields) as (keyof InvoiceObjectType["fields"])[]).map((key) => {
                         if (fields[key] == "none") {
                             return (
-                                <Button className="flex items-center text-blue-500" onClick={() => { setValue(`fields.${key}`, "currency") }} variant={"link"} key={key}>
+                                <Button className="flex items-center" onClick={() => { setValue(`fields.${key}`, "currency") }} variant={"link"} key={key}>
                                     <PlusIcon className="w-4 me-1" />{"  "} {key}
                                 </Button>
                             );

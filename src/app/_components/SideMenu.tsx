@@ -52,7 +52,7 @@ const SideMenu = ({ form }: SideMenuProps) => {
                 {/* download invoice */}
                 <Button
                 type="submit"
-                className="gap-x-2 rounded-none w-full text-lg font-normal py-8 bg-blue-500">
+                className="gap-x-2 rounded-none w-full text-lg font-normal py-8">
                     <ArrowDownToLine className="text-xl" />
                     Download Invoice
                 </Button>
@@ -101,7 +101,7 @@ const SideMenu = ({ form }: SideMenuProps) => {
                         keepIsValid : true
                     })
                 }}
-                 className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-5 bg-blue-500">
+                 className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-5">
                     History
                 </Button>
 
