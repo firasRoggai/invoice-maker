@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { emptyInvoice } from "~/config/formPage";
 import type { InvoiceObjectType } from "~/types";
 import { InvoiceObject } from "~/types";
@@ -14,11 +14,19 @@ export default function HomePage() {
     resolver: zodResolver(InvoiceObject),
     defaultValues: emptyInvoice
   });
+  
+  const onSubmit: SubmitHandler<InvoiceObjectType> = (data) => console.log(data);
 
   return (
-    <main className="p-12 flex gap-2">
-      <FormPage form={form} />
-      <SideMenu form={form} />
+    <main className="">
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+          <div className="p-12 lg:flex gap-2">
+          <FormPage form={form} />
+          <SideMenu form={form} />
+          </div>
+        </form>
+      </FormProvider>
     </main>
   );
 }

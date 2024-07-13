@@ -1,8 +1,9 @@
 import { cva } from "class-variance-authority";
 import { useFormContext } from "react-hook-form";
+import { IoMdSwitch } from "react-icons/io";
 import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/utils";
-import type { IconFormProps } from "~/types";
+import type { SwitchFormProps, InvoiceObjectType } from "~/types";
 
 
 const ErrorMessage = ({ error }: { error?: string }) => {
@@ -13,11 +14,12 @@ const ErrorMessage = ({ error }: { error?: string }) => {
     )
 }
 
-const IconForm = ({ placeholder, target, className, border, size, ring, type, onChange }: IconFormProps) => {
-    const { watch, register, formState: { errors } } = useFormContext<Record<string , string>>();
+const SwitchForm = ({ placeholder, target, className, border, size, ring, type, onChange }: SwitchFormProps) => {
+    const { watch, register, formState: { errors }, setValue } = useFormContext<InvoiceObjectType>();
 
     const currency = watch("currency.value")
-    
+    const field = watch(`fields.${target}`)
+
     const inputVariant = cva(
         "hover:border-black border-[1px] transition duration-200",
         {
@@ -44,10 +46,10 @@ const IconForm = ({ placeholder, target, className, border, size, ring, type, on
     )
 
     return (
-        <div className="grid border-none">
+        <div className="grid border-none w-[14.1rem]">
             <div className={cn(inputVariant({ border: border }), "flex rounded-sm items-center px-1")}>
-                <div className="px-2 text-gray-400">
-                    {currency}
+                <div className="px-2 text-gray-400 w-6">
+                    {field == "%" ? "%" : currency}
                 </div>
                 <Input
                     type={type}
@@ -58,14 +60,29 @@ const IconForm = ({ placeholder, target, className, border, size, ring, type, on
                     })}
                     onChange={onChange ?? undefined}
                 />
+
+                {/* shipping form does not need % */}
+                {target != "shipping" &&
+                    <div className="px-2 text-gray-400">
+                        <button onClick={(e) => {
+                            e.preventDefault()
+
+                            if (field == "%") setValue(`fields.${target}`, "currency")
+                            if (field == "currency") setValue(`fields.${target}`, "%")
+
+                        }}
+                            className="">
+                            <IoMdSwitch className="hover:text-blue-500" />
+                        </button>
+                    </div>
+                }
             </div>
 
             {
-                // eslint-disable-next-line
                 errors[target] && <ErrorMessage error={errors[target]?.message?.toString()} />
             }
         </div>
     );
 }
 
-export default IconForm;
+export default SwitchForm;

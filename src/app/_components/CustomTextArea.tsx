@@ -14,7 +14,7 @@ const ErrorMessage = ({ error }: { error?: string }) => {
 }
 
 const CustomTextArea = ({ placeholder, target, className, border, size }: customFormProps) => {
-    const { register, formState: { errors } } = useFormContext<{ [x: string]: string }>();
+    const { register, formState: { errors } } = useFormContext<Record<string, string>>();
 
     const inputVariant = cva(
         "hover:border-black border-[1px] rounded-sm transition duration-200",

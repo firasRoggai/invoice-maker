@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { ClerkProvider } from '@clerk/nextjs'
+import { TailwindIndicator } from "./_components/TailwindIndicator";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,7 +14,7 @@ const inter = Inter({
 export const metadata = {
   title: "Invoice Maker",
   description: "invoice pdf generator",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/logo.png" }],
 };
 
 export default function RootLayout({
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <TailwindIndicator />
         </body>
       </ClerkProvider>
     </html>

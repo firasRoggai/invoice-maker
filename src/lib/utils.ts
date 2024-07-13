@@ -11,21 +11,57 @@ export function cn(...inputs: ClassValue[]) {
 interface recalculatTotalProps {
   getValues: UseFormGetValues<InvoiceObjectType>,
   setValue: UseFormSetValue<InvoiceObjectType>,
-  index: number,
+  index?: number,
 }
 
 export const recalculatTotal = ({ getValues, setValue, index }: recalculatTotalProps) => {
+  const items = getValues("items");
+  const fields = getValues("fields");
+
+  const tax = getValues("tax");
+  const discounts = getValues("discounts");
+  const shipping = getValues("shipping");
+  const amount_paid = getValues("amount_paid");
 
   // update single row
-  const quantity = Number(getValues(`items.${index}.quantity`));
-  const unit_cost = Number(getValues(`items.${index}.unit_cost`));
+  if (index != undefined) {
+    const quantity = Number(items[index]?.quantity);
+    const unit_cost = Number(items[index]?.unit_cost);
+    setValue(`items.${index}.amount`, quantity * unit_cost);
+  }
 
-  setValue(`items.${index}.amount`, quantity * unit_cost);
+  // sub-total
+  const subTotalUnitCost = items.reduce((total, item) => total + (item.quantity * item.unit_cost), 0);
+  setValue(`subtotal`, subTotalUnitCost);
 
-  // update sub-total and total
-  const items = getValues("items");
+  // total
+  let total = subTotalUnitCost;
 
-  const totalUnitCost = items.reduce((total, item) => total + (item.quantity * item.unit_cost), 0);
-  setValue(`total`, totalUnitCost);
+  if (fields.shipping != "none") total = total + shipping;
+
+  switch (fields.tax) {
+    case "%":
+      total = total + (total * tax / 100);
+      break;
+
+    case "currency":
+      total = total + tax;
+      break;
+  }
+
+  switch (fields.discounts) {
+    case "%":
+      total = total - (total * discounts / 100);
+      break;
+
+    case "currency":
+      total = total - discounts;
+      break;
+  }
+
+  setValue("total", total)
+
+  // balance due
+  setValue("balance", total - amount_paid)
 
 }

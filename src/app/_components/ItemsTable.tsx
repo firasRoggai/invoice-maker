@@ -1,43 +1,76 @@
 "use client";
 
+import { useFieldArray } from "react-hook-form";
+import { Button } from "~/components/ui/button";
+import { recalculatTotal } from "~/lib/utils";
+import CustomForm from "./CustomForm";
+import IconForm from "./IconForm";
+
+// icons
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
-import type { UseFormGetValues, UseFormReturn, UseFormSetValue } from "react-hook-form";
-import { Button } from "~/components/ui/button";
-import type { InvoiceObjectType, tableItem } from "~/types";
-import CustomForm from "./CustomForm";
-import { recalculatTotal } from "~/lib/utils";
+import { IoIosClose } from "react-icons/io";
 
+// types
+import type { UseFieldArrayRemove, UseFormGetValues, UseFormReturn, UseFormSetValue } from "react-hook-form";
+import type { InvoiceObjectType } from "~/types";
 
-const TableRow = ({ item, setValue, getValues }: { item: tableItem, setValue: UseFormSetValue<InvoiceObjectType>, getValues: UseFormGetValues<InvoiceObjectType> }) => {
+interface TableRowProps {
+    index: number,
+    setValue: UseFormSetValue<InvoiceObjectType>,
+    getValues: UseFormGetValues<InvoiceObjectType>,
+    remove: UseFieldArrayRemove,
+}
+
+const TableRow = ({ setValue, getValues, remove, index }: TableRowProps) => {
 
     const currency = getValues("currency.value");
+    const items = getValues(`items`);
+    const item = items[index]
+    const itemsLength = items.length
 
     return (
-        <tr className="grid grid-cols-12">
+        <tr className="grid grid-cols-12 relative">
             <td className="col-span-6">
-                <CustomForm target={`items.${item.index}.name`} className="rounded-e-none" />
+                <CustomForm target={`items.${index}.name`} className="rounded-e-none" />
             </td>
             <td className="col-span-2">
                 <CustomForm
                     onChange={(e) => {
                         const target = e.currentTarget as HTMLInputElement;
-                        setValue(`items.${item.index}.quantity`, Number(target.value))
-                        recalculatTotal({ setValue, getValues, index: item.index })
+                        setValue(`items.${index}.quantity`, Number(target.value))
+                        recalculatTotal({ setValue, getValues, index: index })
                     }}
-                    type="number" target={`items.${item.index}.quantity`} className="rounded-e-none rounded-s-none" />
+                    type="number" target={`items.${index}.quantity`}
+                    className="rounded-e-none rounded-s-none" />
             </td>
             <td className="col-span-2">
-                <CustomForm
+                <IconForm
                     onChange={(e) => {
                         const target = e.currentTarget as HTMLInputElement;
-                        setValue(`items.${item.index}.unit_cost`, Number(target.value))
-                        recalculatTotal({ setValue, getValues, index: item.index })
+                        setValue(`items.${index}.unit_cost`, Number(target.value))
+                        recalculatTotal({ setValue, getValues, index: index })
                     }}
-                    type="number" target={`items.${item.index}.unit_cost`} className="rounded-e-none rounded-s-none" />
+                    ring="none"
+                    type="number"
+                    target={`items.${index}.unit_cost`}
+                    className="rounded-e-none rounded-s-none"
+                />
             </td>
             <td className="col-span-2 flex justify-end items-center pr-1">
-                {currency}{" "}{item.amount.toFixed(2)}
+                {currency}{" "}{item?.amount.toFixed(2)}
+            </td>
+            <td className="absolute -right-5 top-[10] flex justify-center">
+                <button onClick={(e) => {
+                    e.preventDefault();
+
+                    if (itemsLength == 1) return
+
+                    remove(index)
+                    recalculatTotal({ setValue, getValues, index: index })
+                }}>
+                    <IoIosClose className="text-xl" />
+                </button>
             </td>
         </tr>
     )
@@ -49,10 +82,13 @@ interface ItemTableProps {
 
 const ItemsTable = ({ form }: ItemTableProps) => {
 
-    // const { setValue, getValues, formState: { errors } } = form;
+    const { control } = form;
 
-    const tableItems = form.watch("items");
-    const total = form.watch("total");
+    const { fields, append, remove } = useFieldArray({
+        name: "items",
+        control
+    });
+
 
     const [itemsCounter, setItemsCounter] = useState(1)
 
@@ -78,9 +114,17 @@ const ItemsTable = ({ form }: ItemTableProps) => {
 
                 <tbody>
                     {
-                        tableItems.map((item) => {
+                        fields.map((item, index) => {
+
+                            const props = {
+                                setValue: form.setValue,
+                                getValues: form.getValues,
+                                remove: remove,
+                                index: index,
+                            }
+
                             return (
-                                <TableRow key={item.index} item={item} setValue={form.setValue} getValues={form.getValues} />
+                                <TableRow key={item.id} {...props} />
                             )
                         })
                     }
@@ -91,13 +135,12 @@ const ItemsTable = ({ form }: ItemTableProps) => {
                 onClick={(e) => {
                     e.preventDefault()
 
-                    form.setValue(`items.${itemsCounter}`, {
+                    append({
                         quantity: 0,
                         name: "",
                         description: "",
                         unit_cost: 0,
                         amount: 0,
-                        index: itemsCounter
                     })
 
                     setItemsCounter(itemsCounter + 1)
@@ -106,9 +149,6 @@ const ItemsTable = ({ form }: ItemTableProps) => {
                 <PlusIcon />
                 Add Line
             </Button>
-            <div>
-                total : {total}
-            </div>
         </>
     );
 }

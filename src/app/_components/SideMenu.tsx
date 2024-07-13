@@ -1,9 +1,10 @@
 import { ArrowDownToLine } from "lucide-react";
-import type { UseFormReturn } from "react-hook-form";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
+import { recalculatTotal } from "~/lib/utils";
 import type { InvoiceObjectType, reactSelect } from "~/types";
 // import options from "~/lib/currencies.json"
 
@@ -43,13 +44,15 @@ const typeOptions = [
 
 const SideMenu = ({ form }: SideMenuProps) => {
 
-    const { control } = form;
+    const { control, getValues , setValue , reset } = form;
 
     return (
         <>
-            <div className="h-[100vh] w-[20%] border border-black p-3">
+            <div className="lg:h-[100vh] lg:w-[20%] lg:border lg:border-black p-3">
                 {/* download invoice */}
-                <Button className="gap-x-2 rounded-none w-full text-lg font-normal py-8 bg-blue-500">
+                <Button
+                type="submit"
+                className="gap-x-2 rounded-none w-full text-lg font-normal py-8 bg-blue-500">
                     <ArrowDownToLine className="text-xl" />
                     Download Invoice
                 </Button>
@@ -62,7 +65,7 @@ const SideMenu = ({ form }: SideMenuProps) => {
                         name="currency"
                         render={({ field }) => {
                             return (
-                                <AsyncSelect {...field} cacheOptions defaultOptions={options} loadOptions={promiseOptions} />
+                                <AsyncSelect instanceId={"react-select-3-live-region"} {...field} cacheOptions defaultOptions={options} loadOptions={promiseOptions} />
                             )
                         }} />
                 </div>
@@ -78,10 +81,27 @@ const SideMenu = ({ form }: SideMenuProps) => {
                 </div>
 
                 {/* save default */}
-                <Button className="p-1" variant={"link"}>Save Default</Button>
+                <Button 
+                onClick={() => {
+                    const values = JSON.stringify(getValues());
+                    localStorage.setItem("invoiceObject", values);
+                }}
+                className="p-1"
+                 variant={"link"}>Save Default</Button>
 
                 {/* save template */}
-                <Button className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-5 bg-blue-500">
+                <Button
+                onClick={() => {
+                    const invoiceJSON = localStorage.getItem("invoiceObject");
+
+                    if(!invoiceJSON) return
+
+                    const invoice = JSON.parse(invoiceJSON) as InvoiceObjectType;
+                    reset(invoice , {
+                        keepIsValid : true
+                    })
+                }}
+                 className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-5 bg-blue-500">
                     History
                 </Button>
 

@@ -17,9 +17,29 @@ const descriptionSchema = z.string()
 
 interface customFormProps {
     placeholder?: string,
+    target: InvoiceKey | string & NonNullable<unknown>,
+    className?: string,
+    border?: "default" | "none"
+    size?: "default" | "sm"
+    ring?: "default" | "none",
+    type?: HTMLInputTypeAttribute,
+    onChange?: (e: FormEvent) => void
+}
 
-    // eslint-disable-next-line
-    target: InvoiceKey | string,
+interface IconFormProps {
+    placeholder?: string,
+    target: InvoiceKey | string & NonNullable<unknown>,
+    className?: string,
+    border?: "default" | "none"
+    size?: "default" | "sm"
+    ring?: "default" | "none",
+    type?: HTMLInputTypeAttribute,
+    onChange?: (e: FormEvent) => void
+}
+
+interface SwitchFormProps {
+    placeholder?: string,
+    target: "tax" | "discounts" | "shipping",
     className?: string,
     border?: "default" | "none"
     size?: "default" | "sm"
@@ -34,7 +54,6 @@ const itemSchema = z.object({
     description: z.string().min(3).max(30),
     unit_cost: z.number().min(0),
     amount: z.number().min(0),
-    index: z.number()
 })
 
 
@@ -51,16 +70,16 @@ const InvoiceObject = z.object({
     date_format: z.string(),
     date: z.date(),
     payment_terms: descriptionSchema,
-    due_date: z.date(),
+    due_date: z.date().optional(),
     items: z.array(itemSchema),
     currency: z.object({ value: z.string(), label: z.string() }),
     fields: z.object({
-        discounts: z.boolean(),
-        tax: z.enum(["%", "currency"]),
-        shipping: z.boolean()
+        discounts: z.enum(["%", "currency", "none"]),
+        tax: z.enum(["%", "currency", "none"]),
+        shipping: z.enum(["currency", "none"])
     }),
-    discounts: z.string(),
-    tax: z.string(),
+    discounts: z.number(),
+    tax: z.number(),
     shipping: z.number(),
     amount_paid: z.number(),
     notes: descriptionSchema,
@@ -100,4 +119,4 @@ export type reactSelect = {
 
 export { InvoiceObject };
 export type tableItem = z.infer<typeof itemSchema>
-export type { InvoiceKey, InvoiceObjectType, customFormProps };
+export type { InvoiceKey, InvoiceObjectType, customFormProps, IconFormProps , SwitchFormProps };

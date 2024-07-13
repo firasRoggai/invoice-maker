@@ -1,22 +1,30 @@
+import type { InvoiceObjectType } from "~/types";
+
 /** an object with the default values that come when loading the app. */
-export const emptyInvoice = {
+export const emptyInvoice : InvoiceObjectType = {
     logo: '',
     history: false,
     from: '',
     to: '',    
-    ship_to: undefined,
+    ship_to: "",
     number: 2,
     purchase_order: '',
     date_format: '',
     date: new Date(),
+    due_date: undefined,
+    fields : {
+        discounts : "%",
+        shipping : "currency",
+        tax: "currency"
+    },
     payment_terms: '',
     currency: {value : "$" , label : "USD ($)"},
-    discounts: '',
-    tax: '',
+    discounts: 0,
+    tax: 0,
     shipping: 0,
     amount_paid: 0,
-    notes: '',
-    terms: '',
+    notes: undefined,
+    terms: undefined,
     header: "INVOICE",
     to_title: "Bill To",
     ship_to_title : "Ship To",
@@ -31,7 +39,6 @@ export const emptyInvoice = {
         description: "",
         unit_cost: 0,
         amount: 0,
-        index: 0
     }],
     quantity_header : "Quantity",
     unit_cost_header : "Rate",

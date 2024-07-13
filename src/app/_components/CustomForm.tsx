@@ -13,6 +13,19 @@ const ErrorMessage = ({ error }: { error?: string }) => {
     )
 }
 
+/**
+ * A custom form input component that uses React Hook Form and Class Variance Authority (CVA) for styling.
+ *
+ * @example
+ * <CustomForm
+ *   placeholder="Enter your name"
+ *   target="name"
+ *   type="text"
+ *   border="default"
+ *   size="sm"
+ *   ring="default"
+ * />
+ */
 const CustomForm = ({ placeholder, target, className, border, size, ring, type, onChange }: customFormProps) => {
     const { register, formState: { errors } } = useFormContext<Record<string, string>>();
 
