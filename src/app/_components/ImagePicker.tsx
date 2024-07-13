@@ -1,17 +1,15 @@
 "use client";
 
 import { useFormContext } from 'react-hook-form';
-import { IoIosClose } from 'react-icons/io';
 import { FaRegWindowClose } from "react-icons/fa";
 import { useFilePicker } from 'use-file-picker';
 import { FileAmountLimitValidator, FileSizeValidator, ImageDimensionsValidator } from 'use-file-picker/validators';
-import { Button } from '~/components/ui/button';
-
+import type { InvoiceObjectType } from '~/types';
 
 const ImagePicker = () => {
-    const { setValue, watch } = useFormContext()
+    const { setValue, watch } = useFormContext<InvoiceObjectType>()
 
-    const { openFilePicker, filesContent, loading, errors } = useFilePicker({
+    const { openFilePicker, loading, errors } = useFilePicker({
         readAs: 'DataURL',
         accept: 'image/*',
         multiple: false,

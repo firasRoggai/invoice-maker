@@ -1,10 +1,9 @@
 import { ArrowDownToLine } from "lucide-react";
-import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
-import { recalculatTotal } from "~/lib/utils";
 import type { InvoiceObjectType, reactSelect } from "~/types";
 // import options from "~/lib/currencies.json"
 
@@ -44,7 +43,7 @@ const typeOptions = [
 
 const SideMenu = ({ form }: SideMenuProps) => {
 
-    const { control, getValues , setValue , reset } = form;
+    const { control, getValues , reset } = form;
 
     return (
         <>

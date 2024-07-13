@@ -1,9 +1,8 @@
 import { cva } from "class-variance-authority";
 import { useFormContext } from "react-hook-form";
-import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
-import { customFormProps } from "~/types";
+import type { customFormProps } from "~/types";
 
 const ErrorMessage = ({ error }: { error?: string }) => {
     return (
