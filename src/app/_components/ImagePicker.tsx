@@ -29,7 +29,6 @@ const ImagePicker = () => {
         },
         onFilesRejected: () => {
             console.error("errors: " , errors);
-            console.log("The image you uploaded is not in a file type we accept. Please use a JPEG, PNG, or GIF.");
             window.alert("The image you uploaded is not in a file type we accept. Please use a JPEG, PNG, or GIF.")
         }
     });

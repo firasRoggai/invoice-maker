@@ -30,8 +30,6 @@ const FormPage = ({ form }: formPageProps) => {
     const balance = watch("balance");
     const currency = watch("currency.value");
 
-    console.log(watch());
-
     return (
         <div className="lg:w-[80%] min-h-[100vh] p-5 rounded-md border-2 bg-white border-gray-300">
             <div className="grid grid-cols-2 gap-3">
