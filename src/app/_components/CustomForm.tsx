@@ -58,14 +58,15 @@ const CustomForm = ({ placeholder, target, className, border, size, ring, type, 
         <div className="grid border-none">
             <div className={cn(inputVariant({ border: border }))}>
                 <Input
+                    aria-label={target}
                     type={type}
                     className={cn("rounded-sm border-none px-2 h-full", inputVariant({ size: size, ring: ring }), className)}
                     placeholder={placeholder}
                     {...register(target, {
                         valueAsNumber: type == "number",
-                    })} 
+                    })}
                     onChange={onChange ?? undefined}
-                    />
+                />
             </div>
             {errors[target] && <ErrorMessage error={errors[target]?.message} />}
         </div>

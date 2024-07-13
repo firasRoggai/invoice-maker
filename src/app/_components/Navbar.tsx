@@ -32,7 +32,7 @@ const Navbar = () => {
 
                 {/* burger menu */}
                 <div>
-                    <button onClick={() => { setMenuOpen(!menuOpen) }} className="lg:hidden" >
+                    <button aria-label="close" onClick={() => { setMenuOpen(!menuOpen) }} className="lg:hidden" >
                         <IoIosMenu className='text-[2rem]' />
                     </button>
                     <div className="hidden lg:block">

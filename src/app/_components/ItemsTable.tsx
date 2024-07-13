@@ -61,14 +61,16 @@ const TableRow = ({ setValue, getValues, remove, index }: TableRowProps) => {
                 {currency}{" "}{item?.amount.toFixed(2)}
             </td>
             <td className="absolute -right-5 top-[10] flex justify-center">
-                <button onClick={(e) => {
-                    e.preventDefault();
+                <button
+                    aria-label={"close"}
+                    onClick={(e) => {
+                        e.preventDefault();
 
-                    if (itemsLength == 1) return
+                        if (itemsLength == 1) return
 
-                    remove(index)
-                    recalculatTotal({ setValue, getValues, index: index })
-                }}>
+                        remove(index)
+                        recalculatTotal({ setValue, getValues, index: index })
+                    }}>
                     <IoIosClose className="text-xl" />
                 </button>
             </td>

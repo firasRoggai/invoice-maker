@@ -33,7 +33,7 @@ const PriceAdjustment = () => {
                         className="w-[10rem] rounded-e-none rounded-s-none" />
 
                     <button
-                        className=""
+                        aria-label="close"
                         type="button"
                         onClick={() => {
                             if (fields.tax == "none") setValue("fields.tax", "currency")
@@ -64,7 +64,7 @@ const PriceAdjustment = () => {
                         className="w-[10rem] rounded-e-none rounded-s-none" />
 
                     <button
-                        className=""
+                        aria-label="close"
                         type="button"
                         onClick={() => {
                             if (fields.discounts == "none") setValue("fields.discounts", "currency")
@@ -95,7 +95,7 @@ const PriceAdjustment = () => {
                         className="w-[10rem] rounded-e-none rounded-s-none" />
 
                     <button
-                        className=""
+                        aria-label="close"
                         type="button"
                         onClick={() => {
                             if (fields.shipping == "none") setValue("fields.shipping", "currency")

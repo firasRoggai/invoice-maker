@@ -5,7 +5,6 @@ import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/utils";
 import type { SwitchFormProps, InvoiceObjectType } from "~/types";
 
-
 const ErrorMessage = ({ error }: { error?: string }) => {
     return (
         <span className="text-xs text-red-600">
@@ -64,7 +63,9 @@ const SwitchForm = ({ placeholder, target, className, border, size, ring, type, 
                 {/* shipping form does not need % */}
                 {target != "shipping" &&
                     <div className="px-2 text-gray-400">
-                        <button onClick={(e) => {
+                        <button
+                        aria-label="close"
+                        onClick={(e) => {
                             e.preventDefault()
 
                             if (field == "%") setValue(`fields.${target}`, "currency")
