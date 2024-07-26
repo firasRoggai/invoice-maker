@@ -48,10 +48,11 @@ interface SwitchFormProps {
     onChange?: (e: FormEvent) => void
 }
 
+// description : .min(3).max(40)
 const itemSchema = z.object({
     quantity: z.number().min(1),
-    name: z.string().min(3).max(10),
-    description: z.string().min(3).max(30),
+    name: z.string().min(3),
+    description: z.string(),
     unit_cost: z.number().min(0),
     amount: z.number().min(0),
 })

@@ -67,9 +67,9 @@ const TableRow = ({ setValue, getValues, remove, index }: TableRowProps) => {
                         e.preventDefault();
 
                         if (itemsLength == 1) return
-
                         remove(index)
-                        recalculatTotal({ setValue, getValues, index: index })
+
+                        recalculatTotal({ setValue, getValues })
                     }}>
                     <IoIosClose className="text-xl" />
                 </button>
@@ -84,13 +84,12 @@ interface ItemTableProps {
 
 const ItemsTable = ({ form }: ItemTableProps) => {
 
-    const { control } = form;
+    const { control , formState : {errors}} = form;
 
     const { fields, append, remove } = useFieldArray({
         name: "items",
         control
     });
-
 
     const [itemsCounter, setItemsCounter] = useState(1)
 

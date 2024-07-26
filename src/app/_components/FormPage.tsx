@@ -29,6 +29,8 @@ const FormPage = ({ form }: formPageProps) => {
     const total = watch("total");
     const balance = watch("balance");
     const currency = watch("currency.value");
+    
+    console.log(watch());
 
     return (
         <div className="lg:w-[80%] min-h-[100vh] p-5 rounded-md border-2 bg-white border-gray-300">

@@ -5,6 +5,32 @@ import { cn } from "~/lib/utils";
 import type { IconFormProps } from "~/types";
 
 
+const inputVariant = cva(
+    "hover:border-black border-[1px] transition duration-200",
+    {
+        variants: {
+            border: {
+                default: "border-[rgb(206,212,218)]",
+                none: "border-none"
+            },
+            size: {
+                default: "",
+                sm: "px-1 h-6 text-sm focus-visible:ring-1 focus-visible:ring-offset-0"
+            },
+            ring: {
+                default: "focus-visible:ring-1 focus-visible:ring-offset-0",
+                none: "focus-visible:ring-0"
+            }
+        },
+        defaultVariants: {
+            border: "default",
+            size: "default",
+            ring: "default",
+        },
+    }
+)
+
+
 const ErrorMessage = ({ error }: { error?: string }) => {
     return (
         <span className="text-xs text-red-600">
@@ -18,31 +44,6 @@ const IconForm = ({ placeholder, target, className, border, size, ring, type, on
 
     const currency = watch("currency.value")
     
-    const inputVariant = cva(
-        "hover:border-black border-[1px] transition duration-200",
-        {
-            variants: {
-                border: {
-                    default: "border-[rgb(206,212,218)]",
-                    none: "border-none"
-                },
-                size: {
-                    default: "",
-                    sm: "px-1 h-6 text-sm focus-visible:ring-1 focus-visible:ring-offset-0"
-                },
-                ring: {
-                    default: "focus-visible:ring-1 focus-visible:ring-offset-0",
-                    none: "focus-visible:ring-0"
-                }
-            },
-            defaultVariants: {
-                border: "default",
-                size: "default",
-                ring: "default",
-            },
-        }
-    )
-
     return (
         <div className="grid border-none">
             <div className={cn(inputVariant({ border: border }), "flex rounded-sm items-center px-1")}>

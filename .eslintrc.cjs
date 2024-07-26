@@ -2,7 +2,7 @@
 const config = {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": false
+    "project": true
   },
   "plugins": [
     "@typescript-eslint"
@@ -13,26 +13,28 @@ const config = {
     "plugin:@typescript-eslint/stylistic-type-checked"
   ],
   "rules": {
-    // turn this on before prod
-    // "no-console" : "error",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
-      "off",
+      "warn",
       {
         "prefer": "type-imports",
         "fixStyle": "inline-type-imports"
       }
     ],
     "@typescript-eslint/no-unused-vars": [
-      "off",
+      "warn",
       {
         "argsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-unsafe-assignment" : "off",
+    "@typescript-eslint/no-unsafe-call" : "off",
+    "@typescript-eslint/no-unsafe-return" : "off",
+    "@typescript-eslint/no-unsafe-member-access" : "off",
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-misused-promises": [
-      "off",
+      "error",
       {
         "checksVoidReturn": {
           "attributes": false

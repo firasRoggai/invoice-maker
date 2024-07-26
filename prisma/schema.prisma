@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
@@ -17,4 +17,11 @@ model Post {
     updatedAt DateTime @updatedAt
 
     @@index([name])
+}
+
+model Invoice {
+    id          Int      @id @default(autoincrement())
+    invoiceData Json
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
