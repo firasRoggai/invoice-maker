@@ -28,9 +28,9 @@ export default function RootLayout({
       <ClerkProvider>
         <TRPCReactProvider>
           <body className={`font-sans ${inter.variable} flex flex-col min-h-screen`}>
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
             <TailwindIndicator />
           </body>
         </TRPCReactProvider>

@@ -17,7 +17,7 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li className="py-1 hover:text-sky-600 cursor-pointer">
-                                <Link href={"/"}>
+                                <Link href={"/guid"}>
                                     How to Use
                                 </Link>
                             </li>
@@ -36,7 +36,9 @@ const Footer = () => {
                             © 2023-2024 invoicemakerio.netlify.app
                         </div>
                         <ul>
-                            <li className="py-1 hover:text-sky-600 cursor-pointer">Terms of Use</li>
+                            <Link href={"/terms"}>
+                                <li className="py-1 hover:text-sky-600 cursor-pointer">Terms of Use</li>
+                            </Link>
                         </ul>
                     </div>
                 </div>

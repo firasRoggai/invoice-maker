@@ -37,7 +37,11 @@ const PriceAdjustment = () => {
                         type="button"
                         onClick={() => {
                             if (fields.tax == "none") setValue("fields.tax", "currency")
-                            else setValue("fields.tax", "none");
+                            else {
+                                setValue("fields.tax", "none")
+                                setValue("tax", 0)
+                                recalculatTotal({ setValue, getValues })
+                            };
                         }}>
                         <IoIosClose className="text-xl" />
                     </button>
@@ -68,7 +72,11 @@ const PriceAdjustment = () => {
                         type="button"
                         onClick={() => {
                             if (fields.discounts == "none") setValue("fields.discounts", "currency")
-                            else setValue("fields.discounts", "none");
+                            else {
+                                setValue("fields.discounts", "none");
+                                setValue("discounts", 0);
+                                recalculatTotal({ setValue, getValues })
+                            };
                         }}>
                         <IoIosClose className="text-xl" />
                     </button>
@@ -99,7 +107,11 @@ const PriceAdjustment = () => {
                         type="button"
                         onClick={() => {
                             if (fields.shipping == "none") setValue("fields.shipping", "currency")
-                            else setValue("fields.shipping", "none");
+                            else {
+                                setValue("fields.shipping", "none")
+                                setValue("shipping", 0);
+                                recalculatTotal({ setValue, getValues })
+                            };
                         }}>
                         <IoIosClose className="text-xl" />
                     </button>

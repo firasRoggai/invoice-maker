@@ -22,11 +22,12 @@ const Navbar = () => {
             <div className="w-[90vw] py-4 flex justify-between items-center gap-4">
                 <div className="flex">
                     <h1 className="text-xl">
-                        <a href="">Invoice Generator</a>
+                        <Link href={'/'}>
+                            Invoice Generator
+                        </Link>
                     </h1>
                     <ul className="items-center hidden lg:flex">
-                        <li className='px-2 text-[0.9rem]'><Link href="/">Help</Link></li>
-                        <li className='px-2 text-[0.9rem]'><Link href="/">Invoicing Guide</Link></li>
+                        <li className='px-2 text-[0.9rem]'><Link href="/guid">Invoicing Guide</Link></li>
                     </ul>
                 </div>
 
@@ -61,8 +62,7 @@ const Navbar = () => {
                                 </Button>
                         }
                     </li>
-                    <li className='pe-2 py-2 text-[0.9rem]'><Link href="/">Help</Link></li>
-                    <li className='pe-2 py-2 text-[0.9rem]'><Link href="/">Invoicing Guide</Link></li>
+                    <li className='pe-2 py-2 text-[0.9rem]'><Link href="/guid">Invoicing Guide</Link></li>
                 </ul>
             </div>
         </nav>

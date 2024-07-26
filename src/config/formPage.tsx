@@ -13,9 +13,9 @@ export const emptyInvoice : InvoiceObjectType = {
     date: new Date(),
     due_date: undefined,
     fields : {
-        discounts : "%",
+        discounts : "none",
         shipping : "currency",
-        tax: "currency"
+        tax: "none"
     },
     payment_terms: '',
     currency: {value : "$" , label : "USD ($)"},

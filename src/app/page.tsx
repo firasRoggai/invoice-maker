@@ -9,9 +9,6 @@ import type { InvoiceObjectType } from "~/types";
 import { InvoiceObject } from "~/types";
 import FormPage from "./_components/FormPage";
 import SideMenu from "./_components/SideMenu";
-import { PDFDownloadLink } from "@joshuajaco/react-pdf-renderer-bundled";
-import InvoiceDocument from "./_components/InvoiceDocument";
-import { useState } from "react";
 
 export default function HomePage() {
 
@@ -29,9 +26,9 @@ export default function HomePage() {
   form.watch("currency")
 
   return (
-    <main className="">
+    <main>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="p-12 lg:flex gap-2">
             <FormPage form={form} />
             <SideMenu form={form} />

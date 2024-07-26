@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 import { useFormContext } from "react-hook-form";
 import { IoMdSwitch } from "react-icons/io";
 import { Input } from "~/components/ui/input";
-import { cn } from "~/lib/utils";
+import { cn, recalculatTotal } from "~/lib/utils";
 import type { SwitchFormProps, InvoiceObjectType } from "~/types";
 
 const ErrorMessage = ({ error }: { error?: string }) => {
@@ -14,7 +14,7 @@ const ErrorMessage = ({ error }: { error?: string }) => {
 }
 
 const SwitchForm = ({ placeholder, target, className, border, size, ring, type, onChange }: SwitchFormProps) => {
-    const { watch, register, formState: { errors }, setValue } = useFormContext<InvoiceObjectType>();
+    const { watch, register, formState: { errors }, setValue , getValues } = useFormContext<InvoiceObjectType>();
 
     const currency = watch("currency.value")
     const field = watch(`fields.${target}`)
@@ -64,14 +64,16 @@ const SwitchForm = ({ placeholder, target, className, border, size, ring, type, 
                 {target != "shipping" &&
                     <div className="px-2 text-gray-400">
                         <button
-                        aria-label="close"
-                        onClick={(e) => {
-                            e.preventDefault()
+                            aria-label="close"
+                            onClick={(e) => {
+                                e.preventDefault()
 
-                            if (field == "%") setValue(`fields.${target}`, "currency")
-                            if (field == "currency") setValue(`fields.${target}`, "%")
+                                if (field == "%") setValue(`fields.${target}`, "currency")
+                                if (field == "currency") setValue(`fields.${target}`, "%")
 
-                        }}
+                                recalculatTotal({ setValue, getValues })
+
+                            }}
                             className="">
                             <IoMdSwitch className="hover:text-blue-500" />
                         </button>

@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         padding: 10,
-        paddingRight: 0
+        paddingRight: 0,
+        paddingBottom: 0
     },
     leftSide: {
         display: "flex",
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     },
     rightSide: {
         display: "flex",
+        paddingBottom: 10,
         width: "100%",
         justifyContent: "center",
         textAlign: "right",
