@@ -6,7 +6,7 @@ import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
 import type { InvoiceObjectType, reactSelect } from "~/types";
-import InvoiceDocument from "../../components/InvoiceDocument";
+import InvoiceDocument from "./InvoiceDocument";
 // import options from "~/lib/currencies.json"
 
 interface SideMenuProps {

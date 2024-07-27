@@ -7,8 +7,8 @@ import { emptyInvoice } from "~/config/formPage";
 import { api } from "~/trpc/react";
 import type { InvoiceObjectType } from "~/types";
 import { InvoiceObject } from "~/types";
-import FormPage from "./_components/FormPage";
-import SideMenu from "./_components/SideMenu";
+import FormPage from "../components/FormPage";
+import SideMenu from "../components/SideMenu";
 
 export default function HomePage() {
 

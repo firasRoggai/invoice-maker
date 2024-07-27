@@ -1,10 +1,10 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import Navbar from "./_components/Navbar";
-import Footer from "./_components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { ClerkProvider } from '@clerk/nextjs'
-import { TailwindIndicator } from "./_components/TailwindIndicator";
+import { TailwindIndicator } from "../components/TailwindIndicator";
 import { TRPCReactProvider } from "~/trpc/react";
 
 const inter = Inter({
