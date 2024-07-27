@@ -28,10 +28,10 @@ const Navbar = () => {
                             InvoiceGenerator
                         </Link>
                     </h1>
-                    <ul className="items-center hidden lg:flex px-5 text-gray-500 hover:underline">
-                        <li className='px-2 text-[0.9rem]'><Link href="/guid">Guide</Link></li>
-                        <li className='px-2 text-[0.9rem]'><Link href="/terms">Terms</Link></li>
-                        <li className='px-2 text-[0.9rem]'><Link href="/about">About Us</Link></li>
+                    <ul className="items-center hidden lg:flex px-5 text-gray-500">
+                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/guid">Guide</Link></li>
+                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/terms">Terms</Link></li>
+                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/about">About Us</Link></li>
                     </ul>
                 </div>
 
