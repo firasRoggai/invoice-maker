@@ -1,29 +1,115 @@
-# Create T3 App
+# Invoice Generator Tool
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Overview
 
-## What's next? How do I make an app with this?
+The Invoice Generator Tool is designed to help freelancers and small businesses manage their invoicing needs efficiently. This project started as a personal hobby to simplify the process of generating and storing professional invoices.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Easy-to-Use Interface**: Create and store invoices effortlessly.
+- **Professional Templates**: Generate invoices with a user-friendly design.
+- **Reliable Storage**: Keep all your invoices securely in one place.
+- **Ongoing Improvements**: Regular updates to enhance functionality and user experience.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Getting Started
 
-## Learn More
+To get started with the Invoice Generator Tool, follow these steps:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### Prerequisites
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Make sure you have the following installed:
+- Node.js (version 18 or later)
+- PostgreSQL (for the database)
+- pnpm (optional, but recommended)
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Installation
 
-## How do I deploy this?
+1. **Clone the Repository:**
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+   ```sh
+   git clone https://github.com/your-username/invoice-generator.git
+   cd invoice-generator
+   ```
+
+2. **Install Dependencies:**
+
+   Using npm:
+   ```sh
+   npm install
+   ```
+
+   Or using pnpm:
+   ```sh
+   pnpm install
+   ```
+
+3. **Set Up Environment Variables:**
+
+   Create a `.env` file in the root directory and add your environment variables. An example `.env` file might look like:
+
+   ```env
+    NODE_ENV="development"
+    DATABASE_URL="your_database_url"
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+    CLERK_SECRET_KEY="your_clerk_secret_key"
+   ```
+
+4. **Run Migrations:**
+
+   Apply any database migrations if you have them:
+
+   ```sh
+   npx prisma migrate deploy
+   ```
+
+5. **Start the Development Server:**
+
+   Using npm:
+   ```sh
+   npm run dev
+   ```
+
+   Or using pnpm:
+   ```sh
+   pnpm dev
+   ```
+
+   The application will be running at `http://localhost:3000`.
+
+### Building for Production
+
+To build and start the application for production:
+
+1. **Build the Application:**
+
+   Using npm:
+   ```sh
+   npm run build
+   ```
+
+   Or using pnpm:
+   ```sh
+   pnpm build
+   ```
+
+2. **Start the Production Server:**
+
+   Using npm:
+   ```sh
+   npm start
+   ```
+
+   Or using pnpm:
+   ```sh
+   pnpm start
+   ```
+
+### Contact Us
+
+If you have any questions, feedback, or need support, feel free to reach out through the following channels:
+
+- [GitHub](https://github.com/firasRoggai)
+- [Twitter](https://twitter.com/FirasRoggai)
+- [Discord](https://discord.com/users/573895146588864525)
+
+Thank you for checking out the Invoice Generator Tool! We hope it makes your invoicing process smoother and more efficient.
