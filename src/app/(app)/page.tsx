@@ -28,7 +28,7 @@ export default async function IndexPage() {
               Get Started
             </Link>
             <Link
-              href={siteConfig.links.github}
+              href={"https://github.com/firasRoggai/invoice-maker"}
               target="_blank"
               rel="noreferrer"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
@@ -141,7 +141,7 @@ export default async function IndexPage() {
           <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
             Our invoice generator is open source, which means that you can access the code and customize it to{" "}
             <Link
-              href={siteConfig.links.github}
+              href={"https://github.com/firasRoggai/invoice-maker"}
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"
