@@ -3,12 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import FormPage from "~/components/FormPage";
+import SideMenu from "~/components/SideMenu";
 import { emptyInvoice } from "~/config/formPage";
 import { api } from "~/trpc/react";
 import type { InvoiceObjectType } from "~/types";
 import { InvoiceObject } from "~/types";
-import FormPage from "../components/FormPage";
-import SideMenu from "../components/SideMenu";
 
 export default function HomePage() {
 

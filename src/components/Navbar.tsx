@@ -2,6 +2,7 @@
 
 // clerk
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+import Image from "next/image";
 
 import Link from 'next/link';
 // react imports
@@ -17,17 +18,20 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <nav className={`min-h-[15vh] grid items-center justify-center bg-[#3d4c59] text-white py-4`}>
+        <nav className={`min-h-[15vh] grid items-center justify-center bg-gray-50 py-4`}>
 
             <div className="w-[90vw] py-4 flex justify-between items-center gap-4">
                 <div className="flex">
                     <h1 className="text-xl">
-                        <Link href={'/'}>
-                            Invoice Generator
+                        <Link className="flex gap-3 font-heading items-center" href={'/'}>
+                            <Image alt="logo" src={"/logo.png"} width={30} height={20} />
+                            InvoiceGenerator
                         </Link>
                     </h1>
-                    <ul className="items-center hidden lg:flex">
-                        <li className='px-2 text-[0.9rem]'><Link href="/guid">Invoicing Guide</Link></li>
+                    <ul className="items-center hidden lg:flex px-5 text-gray-500 hover:underline">
+                        <li className='px-2 text-[0.9rem]'><Link href="/guid">Guide</Link></li>
+                        <li className='px-2 text-[0.9rem]'><Link href="/terms">Terms</Link></li>
+                        <li className='px-2 text-[0.9rem]'><Link href="/about">About Us</Link></li>
                     </ul>
                 </div>
 

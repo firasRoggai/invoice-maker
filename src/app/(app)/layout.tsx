@@ -1,16 +1,24 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 import { ClerkProvider } from '@clerk/nextjs'
-import { TailwindIndicator } from "../components/TailwindIndicator";
+import { TailwindIndicator } from "../../components/TailwindIndicator";
 import { TRPCReactProvider } from "~/trpc/react";
+import localFont from "next/font/local"
+import { cn } from "~/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
+
+// Font files can be colocated inside of `pages`
+const fontHeading = localFont({
+  src: "../../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+})
 
 export const metadata = {
   title: "Invoice Maker",
@@ -27,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <ClerkProvider>
         <TRPCReactProvider>
-          <body className={`font-sans ${inter.variable} flex flex-col min-h-screen`}>
+          <body className={cn(`font-sans ${inter.variable} flex flex-col min-h-screen`, fontHeading.variable)}>
             <Navbar />
             {children}
             <Footer />
