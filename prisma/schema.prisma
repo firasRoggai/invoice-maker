@@ -19,9 +19,23 @@ model Post {
     @@index([name])
 }
 
+model User {
+    id          String    @id @default(uuid())
+    name        String
+    email       String
+    image       String
+    invoiceList Invoice[]
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    @@index([name])
+}
+
 model Invoice {
     id          Int      @id @default(autoincrement())
     invoiceData Json
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    userId      String?
+    User        User?    @relation(fields: [userId], references: [id])
 }
