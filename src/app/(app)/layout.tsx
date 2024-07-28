@@ -8,6 +8,8 @@ import { TailwindIndicator } from "../../components/TailwindIndicator";
 import { TRPCReactProvider } from "~/trpc/react";
 import localFont from "next/font/local"
 import { cn } from "~/lib/utils";
+import { marketingConfig } from "~/config/marketing";
+import { siteConfig } from "~/config/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,10 +23,40 @@ const fontHeading = localFont({
 })
 
 export const metadata = {
-  title: "Invoice Maker",
-  description: "invoice pdf generator",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
   icons: [{ rel: "icon", url: "/logo.png" }],
-};
+  description: siteConfig.description,
+  keywords: [
+    "free invoice tool",
+    "invoice generator",
+    "invoice tool",
+    "pdf invoice",
+    "invoice",
+  ],
+  authors: [
+    {
+      name: "firasRoggai",
+      url: "https://github.com/firasRoggai",
+    },
+  ],
+  creator: "firasroggai",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  }
+}
+
 
 export default function RootLayout({
   children,
@@ -36,7 +68,7 @@ export default function RootLayout({
       <ClerkProvider>
         <TRPCReactProvider>
           <body className={cn(`font-sans ${inter.variable} flex flex-col min-h-screen`, fontHeading.variable)}>
-            <Navbar />
+            <Navbar items={marketingConfig.mainNav} />
             {children}
             <Footer />
             <TailwindIndicator />

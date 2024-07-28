@@ -1,16 +1,12 @@
 import "~/styles/globals.css";
 
+import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from "next/font/google";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import { ClerkProvider } from '@clerk/nextjs'
-import { TailwindIndicator } from "../../components/TailwindIndicator";
-import { TRPCReactProvider } from "~/trpc/react";
-import localFont from "next/font/local"
+import localFont from "next/font/local";
+import { sync } from "~/actions/sync";
 import { cn } from "~/lib/utils";
-import { auth } from "@clerk/nextjs/server";
-import { db } from "~/server/db";
-import { redirect } from "next/navigation";
+import { TRPCReactProvider } from "~/trpc/react";
+import { TailwindIndicator } from "../../components/TailwindIndicator";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,34 +25,22 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/logo.png" }],
 };
 
-const { userId } = auth()
 
-if (userId) {
-    const dbUser = await db.user.findFirst({
-        where: {
-            id: userId
-        }
-    })
-    
-    
-    if (!dbUser) {
-        redirect("/auth-callback?origin=dashboard");
-    }
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  // sync the user with the db
+  await sync('dashboard');
+
   return (
     <html lang="en">
       <ClerkProvider>
         <TRPCReactProvider>
           <body className={cn(`font-sans ${inter.variable} flex flex-col min-h-screen`, fontHeading.variable)}>
-            <Navbar />
-              {children}
-            <Footer />
+            {children}
             <TailwindIndicator />
           </body>
         </TRPCReactProvider>

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { FaRegWindowClose } from "react-icons/fa";
 import { useFilePicker } from 'use-file-picker';
 import { FileAmountLimitValidator, FileSizeValidator, ImageDimensionsValidator } from 'use-file-picker/validators';
-import type { InvoiceObjectType } from '~/types';
+import type { InvoiceObjectType } from '~/types/types';
 
 const ImagePicker = () => {
     const { setValue, watch } = useFormContext<InvoiceObjectType>()

@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 import { useFormContext } from "react-hook-form";
 import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/utils";
-import type { IconFormProps } from "~/types";
+import type { IconFormProps } from "~/types/types";
 
 
 const inputVariant = cva(

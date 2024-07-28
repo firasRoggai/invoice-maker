@@ -13,7 +13,7 @@ import { IoIosClose } from "react-icons/io";
 
 // types
 import type { UseFieldArrayRemove, UseFormGetValues, UseFormReturn, UseFormSetValue } from "react-hook-form";
-import type { InvoiceObjectType } from "~/types";
+import type { InvoiceObjectType } from "~/types/types";
 
 interface TableRowProps {
     index: number,

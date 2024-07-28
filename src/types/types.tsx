@@ -123,7 +123,7 @@ export type tableItem = z.infer<typeof itemSchema>
 export type { InvoiceKey, InvoiceObjectType, customFormProps, IconFormProps , SwitchFormProps };
 
 
-// site
+// site config
 type User = {
     name : string
 }

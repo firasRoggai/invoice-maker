@@ -1,4 +1,4 @@
-import type { InvoiceObjectType } from "~/types";
+import type { InvoiceObjectType } from "~/types/types";
 
 /** an object with the default values that come when loading the app. */
 export const emptyInvoice : InvoiceObjectType = {

@@ -10,10 +10,15 @@ import { useState } from 'react';
 // icon imports
 import { IoIosMenu } from 'react-icons/io';
 import { Button } from "~/components/ui/button";
+import { MainNavItem } from "~/types/types";
 
-const Navbar = () => {
+interface MainNavProps {
+    items: MainNavItem[]
+    children?: React.ReactNode
+}
+const Navbar = ({ items }: MainNavProps) => {
 
-    const { isLoaded, userId, sessionId, getToken, isSignedIn } = useAuth();
+    const { isSignedIn } = useAuth();
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,9 +34,13 @@ const Navbar = () => {
                         </Link>
                     </h1>
                     <ul className="items-center hidden lg:flex px-5 text-gray-500">
-                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/guid">Guide</Link></li>
-                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/terms">Terms</Link></li>
-                        <li className='hover:underline px-2 text-[0.9rem]'><Link href="/about">About Us</Link></li>
+                        {items.map(navItem => {
+                            return (
+                                <li key={navItem.title} className='hover:underline px-2 text-[0.9rem]'>
+                                    <Link href={navItem.href}>{navItem.title}</Link>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
 
@@ -56,7 +65,7 @@ const Navbar = () => {
             {/* Mobile Menu */}
             <div className={`${menuOpen ? "flex" : "hidden"} items-end w-[90vw]`}>
                 <ul>
-                    <li className='py-2 text-[0.9rem]'>
+                    <li className='pl-2 py-2 text-[0.9rem]'>
                         {
                             isSignedIn ?
                                 <UserButton afterSignOutUrl="/" />
@@ -66,7 +75,13 @@ const Navbar = () => {
                                 </Button>
                         }
                     </li>
-                    <li className='pe-2 py-2 text-[0.9rem]'><Link href="/guid">Invoicing Guide</Link></li>
+                    {items.map(navItem => {
+                        return (
+                            <li key={navItem.title} className='hover:underline px-2 text-[0.9rem]'>
+                                <Link href={navItem.href}>{navItem.title}</Link>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         </nav>

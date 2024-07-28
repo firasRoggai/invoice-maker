@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { authProcedure, createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { InvoiceObject } from "~/types";
+import { InvoiceObject } from "~/types/types";
 // 
 
 

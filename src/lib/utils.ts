@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import type { UseFormGetValues, UseFormSetValue } from "react-hook-form";
 import { twMerge } from "tailwind-merge"
-import type { InvoiceObjectType } from "~/types";
+import type { InvoiceObjectType } from "~/types/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

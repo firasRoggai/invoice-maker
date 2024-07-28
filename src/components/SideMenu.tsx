@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
-import type { InvoiceObjectType, reactSelect } from "~/types";
+import type { InvoiceObjectType, reactSelect } from "~/types/types";
 import InvoiceDocument from "./InvoiceDocument";
 // import options from "~/lib/currencies.json"
 

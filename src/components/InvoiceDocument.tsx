@@ -1,7 +1,7 @@
 "use client";
 
 import { Document, Font, Page, StyleSheet, Text, View, Image } from '@react-pdf/renderer';
-import type { InvoiceObjectType } from '~/types';
+import type { InvoiceObjectType } from '~/types/types';
 // fonts
 // Register the font
 Font.register({

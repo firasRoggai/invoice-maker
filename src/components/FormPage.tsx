@@ -2,7 +2,7 @@
 
 import type { UseFormReturn } from "react-hook-form"
 
-import type { InvoiceObjectType } from "~/types"
+import type { InvoiceObjectType } from "~/types/types"
 import CustomForm from "./CustomForm"
 import CustomTextArea from "./CustomTextArea"
 import ImagePicker from "./ImagePicker"

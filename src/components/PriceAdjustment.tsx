@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { IoIosClose } from "react-icons/io";
-import type { InvoiceObjectType } from "~/types";
+import type { InvoiceObjectType } from "~/types/types";
 import CustomForm from "./CustomForm";
 import SwitchForm from "./SwitchForm";
 import { Button } from "~/components/ui/button";

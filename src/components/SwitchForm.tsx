@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { IoMdSwitch } from "react-icons/io";
 import { Input } from "~/components/ui/input";
 import { cn, recalculatTotal } from "~/lib/utils";
-import type { SwitchFormProps, InvoiceObjectType } from "~/types";
+import type { SwitchFormProps, InvoiceObjectType } from "~/types/types";
 
 const ErrorMessage = ({ error }: { error?: string }) => {
     return (
