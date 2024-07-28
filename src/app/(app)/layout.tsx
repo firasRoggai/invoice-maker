@@ -10,6 +10,7 @@ import localFont from "next/font/local"
 import { cn } from "~/lib/utils";
 import { marketingConfig } from "~/config/marketing";
 import { siteConfig } from "~/config/site";
+import { Toaster } from "~/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,6 +68,7 @@ export default function RootLayout({
             <Navbar items={marketingConfig.mainNav} />
             {children}
             <Footer />
+            <Toaster />
             <TailwindIndicator />
           </body>
         </TRPCReactProvider>

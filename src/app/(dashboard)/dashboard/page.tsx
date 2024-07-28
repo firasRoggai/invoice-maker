@@ -69,10 +69,14 @@ import {
     TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs"
+import { api } from "~/trpc/react";
 
 
 export default function Dashboard() {
-    const { isSignedIn } = useAuth();
+
+    const { isSignedIn, userId } = useAuth();
+
+    const { data } = api.invoice.getTemplates.useQuery({ userId: userId as string });
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -260,15 +264,11 @@ export default function Dashboard() {
                     }
                 </header>
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <Tabs defaultValue="all">
+                    <Tabs defaultValue="templates">
                         <div className="flex items-center pt-5 pb-3">
                             <TabsList>
-                                <TabsTrigger value="all">All</TabsTrigger>
-                                <TabsTrigger value="active">Active</TabsTrigger>
-                                <TabsTrigger value="draft">Draft</TabsTrigger>
-                                <TabsTrigger value="archived" className="hidden sm:flex">
-                                    Archived
-                                </TabsTrigger>
+                                <TabsTrigger value="templates">Templates</TabsTrigger>
+                                <TabsTrigger value="history">history</TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-2">
                                 <DropdownMenu>
@@ -306,12 +306,12 @@ export default function Dashboard() {
                                 </Button>
                             </div>
                         </div>
-                        <TabsContent value="all">
+                        <TabsContent value="history">
                             <Card x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
-                                    <CardTitle>Products</CardTitle>
+                                    <CardTitle>Invoices</CardTitle>
                                     <CardDescription>
-                                        Manage your products and view their sales performance.
+                                        Manage your invoice history and templates.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -537,6 +537,86 @@ export default function Dashboard() {
                                                     </DropdownMenu>
                                                 </TableCell>
                                             </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                                <CardFooter>
+                                    <div className="text-xs text-muted-foreground">
+                                        Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                                        products
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        </TabsContent>
+                        <TabsContent value="templates">
+                            <Card x-chunk="dashboard-06-chunk-0">
+                                <CardHeader>
+                                    <CardTitle>Invoices</CardTitle>
+                                    <CardDescription>
+                                        Manage your invoice history and templates.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead>Name</TableHead>
+                                                <TableHead>Status</TableHead>
+                                                <TableHead>Price</TableHead>
+                                                <TableHead className="hidden md:table-cell">
+                                                    Total Sales
+                                                </TableHead>
+                                                <TableHead className="hidden md:table-cell">
+                                                    Created at
+                                                </TableHead>
+                                                <TableHead>
+                                                    <span className="sr-only">Actions</span>
+                                                </TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {
+                                                data?.map(template => {
+                                                    return (
+                                                        <TableRow>
+                                                            <TableCell className="font-medium">
+                                                                {template.name}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Badge variant="destructive">Draft</Badge>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {template.updatedAt.getFullYear()}
+                                                            </TableCell>
+                                                            <TableCell className="hidden md:table-cell">
+                                                                25
+                                                            </TableCell>
+                                                            <TableCell className="hidden md:table-cell">
+                                                                {template.createdAt.getFullYear()}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <DropdownMenu>
+                                                                    <DropdownMenuTrigger asChild>
+                                                                        <Button
+                                                                            aria-haspopup="true"
+                                                                            size="icon"
+                                                                            variant="ghost"
+                                                                        >
+                                                                            <MoreHorizontal className="h-4 w-4" />
+                                                                            <span className="sr-only">Toggle menu</span>
+                                                                        </Button>
+                                                                    </DropdownMenuTrigger>
+                                                                    <DropdownMenuContent align="end">
+                                                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                                                                    </DropdownMenuContent>
+                                                                </DropdownMenu>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    )
+                                                })
+                                            }
                                         </TableBody>
                                     </Table>
                                 </CardContent>

@@ -58,7 +58,7 @@ const CustomForm = ({ placeholder, target, className, border, size, ring, type }
         <div className="grid border-none">
             <div className={cn(inputVariant({ border: border }))}>
                 <Input
-                    // aria-label={target}
+                    aria-label={target}
                     type={type}
                     className={cn("rounded-sm border-none px-2 h-full", inputVariant({ size: size, ring: ring }), className)}
                     placeholder={placeholder}

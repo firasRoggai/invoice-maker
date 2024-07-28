@@ -1,3 +1,5 @@
+"use client";
+
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ArrowDownToLine } from "lucide-react";
 import type { UseFormReturn } from "react-hook-form";
@@ -7,7 +9,24 @@ import AsyncSelect from "react-select/async";
 import { Button } from "~/components/ui/button";
 import type { InvoiceObjectType, reactSelect } from "~/types/types";
 import InvoiceDocument from "./InvoiceDocument";
-// import options from "~/lib/currencies.json"
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "~/components/ui/alert-dialog"
+import { Input } from "./ui/input";
+import { useState } from "react";
+import { api } from "~/trpc/react";
+import { useToast } from "./ui/use-toast";
+
+
 
 interface SideMenuProps {
     form: UseFormReturn<InvoiceObjectType>
@@ -46,9 +65,27 @@ const typeOptions = [
 const SideMenu = ({ form }: SideMenuProps) => {
 
     const { control, getValues, reset, watch } = form;
-
+    const [templateName, setTemplateName] = useState("untitled")
+    const { toast } = useToast()
 
     const data = getValues();
+
+    const { mutate: createTemplate } = api.invoice.createTemplate.useMutation()
+
+    const addTemplate = () => {
+        createTemplate({
+            name: templateName,
+            invoiceObject: form.getValues()
+        }, {
+            onSuccess: () => {
+                toast({
+                    title: "You Added a template!",
+                    description: `Your template "${templateName}" was added successfully.`,
+                })
+            }
+        })
+
+    }
 
     return (
         <>
@@ -85,14 +122,30 @@ const SideMenu = ({ form }: SideMenuProps) => {
                         defaultValue={{ value: 'invoice', label: 'Invoice' }} />
                 </div>
 
-                {/* save default */}
-                <Button
-                    onClick={() => {
-                        const values = JSON.stringify(getValues());
-                        localStorage.setItem("invoiceObject", values);
-                    }}
-                    className="p-1"
-                    variant={"link"}>Save Default</Button>
+                {/* save template */}
+                <AlertDialog>
+                    <AlertDialogTrigger>
+                        <Button
+                            type="button"
+                            className="p-1"
+                            variant={"link"}>Save Template</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Save Template</AlertDialogTitle>
+                            <AlertDialogDescription>Template name:</AlertDialogDescription>
+                            <Input
+                                value={templateName}
+                                onChange={(e) => {
+                                    setTemplateName(e.target.value)
+                                }} type="text" />
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={addTemplate}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
 
                 {/* get saved templates */}
                 <Button
