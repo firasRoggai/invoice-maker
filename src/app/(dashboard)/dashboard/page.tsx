@@ -318,9 +318,6 @@ export default function Dashboard() {
                                     <Table>
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead className="hidden w-[100px] sm:table-cell">
-                                                    <span className="sr-only">Image</span>
-                                                </TableHead>
                                                 <TableHead>Name</TableHead>
                                                 <TableHead>Status</TableHead>
                                                 <TableHead>Price</TableHead>
@@ -337,15 +334,6 @@ export default function Dashboard() {
                                         </TableHeader>
                                         <TableBody>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     Laser Lemonade Machine
                                                 </TableCell>
@@ -380,15 +368,6 @@ export default function Dashboard() {
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     Hypernova Headphones
                                                 </TableCell>
@@ -423,15 +402,6 @@ export default function Dashboard() {
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     AeroGlow Desk Lamp
                                                 </TableCell>
@@ -466,15 +436,6 @@ export default function Dashboard() {
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     TechTonic Energy Drink
                                                 </TableCell>
@@ -509,15 +470,6 @@ export default function Dashboard() {
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     Gamer Gear Pro Controller
                                                 </TableCell>
@@ -552,15 +504,6 @@ export default function Dashboard() {
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <Image
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </TableCell>
                                                 <TableCell className="font-medium">
                                                     Luminous VR Headset
                                                 </TableCell>
