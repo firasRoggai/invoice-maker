@@ -73,9 +73,11 @@ const SideMenu = ({ form }: SideMenuProps) => {
     const { mutate: createTemplate } = api.invoice.createTemplate.useMutation()
 
     const addTemplate = () => {
+        const template = form.getValues();
+
         createTemplate({
             name: templateName,
-            invoiceObject: form.getValues()
+            invoiceObject: JSON.stringify(template)
         }, {
             onSuccess: () => {
                 toast({
@@ -87,11 +89,30 @@ const SideMenu = ({ form }: SideMenuProps) => {
 
     }
 
+    const { mutate: createInvoice } = api.invoice.create.useMutation()
+
+
     return (
         <>
             <div className="lg:h-[100vh] lg:w-[20%] lg:border lg:border-black p-3">
                 {/* download invoice */}
                 <PDFDownloadLink
+                    onClick={() => {
+                        createInvoice({
+                            from: data.from,
+                            to: data.to,
+                            balance_due: data.balance,
+                            currency: data.currency.value,
+                            invoiceData: data,
+                        }, {
+                            onSuccess: () => {
+                                toast({
+                                    title: "You made an invoice!",
+                                    description: `Your invoice was added successfully.`,
+                                })
+                            }
+                        })
+                    }}
                     type="submit"
                     className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  h-10 px-4 bg-primary text-primary-foreground hover:bg-primary/90 gap-x-2 rounded-none w-full text-lg font-normal py-8"
                     document={<InvoiceDocument invoiceObject={data} />} fileName="somename.pdf">
@@ -124,11 +145,8 @@ const SideMenu = ({ form }: SideMenuProps) => {
 
                 {/* save template */}
                 <AlertDialog>
-                    <AlertDialogTrigger>
-                        <Button
-                            type="button"
-                            className="p-1"
-                            variant={"link"}>Save Template</Button>
+                    <AlertDialogTrigger className="hover:underline p-1 text-sm font-semibold text-blue-600">
+                        Save Template
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
@@ -142,27 +160,28 @@ const SideMenu = ({ form }: SideMenuProps) => {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={addTemplate}>Continue</AlertDialogAction>
+                            <AlertDialogAction type="button" onClick={addTemplate}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
 
                 {/* get saved templates */}
-                <Button
-                    onClick={() => {
-                        const invoiceJSON = localStorage.getItem("invoiceObject");
-
-                        if (!invoiceJSON) return
-
-                        const invoice = JSON.parse(invoiceJSON) as InvoiceObjectType;
-                        // date & due_date become string after conversion , and had to be converted to a date again
-                        reset({ ...invoice, due_date: new Date(invoice.due_date as unknown as string), date: new Date(invoice.date as unknown as string) }, {
-                            keepIsValid: true
-                        })
-                    }}
-                    className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-5">
-                    History
-                </Button>
+                <AlertDialog>
+                    <AlertDialogTrigger className="gap-x-2 rounded-none w-full text-lg justify-start font-normal py-3 bg-primary text-white">
+                        History
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Get Template</AlertDialogTitle>
+                            <AlertDialogDescription>Recent Templates:</AlertDialogDescription>
+                            
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction type="button" onClick={addTemplate}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
 
             </div>
         </>

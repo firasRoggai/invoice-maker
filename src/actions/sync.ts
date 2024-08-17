@@ -14,7 +14,6 @@ export async function sync(origin: string) {
             }
         })
 
-
         if (!dbUser) {
             redirect(`/auth-callback?origin=${origin}`);
         }

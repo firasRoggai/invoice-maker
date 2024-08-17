@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
+    Cat,
     File,
     Home,
     LineChart,
@@ -11,6 +12,7 @@ import {
     Package,
     Package2,
     PanelLeft,
+    PinIcon,
     PlusCircle,
     Search,
     Settings,
@@ -70,31 +72,56 @@ import {
 } from "~/components/ui/tooltip"
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs"
 import { api } from "~/trpc/react";
+import { formatDate } from "~/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 
 
 export default function Dashboard() {
 
     const { isSignedIn, userId } = useAuth();
 
-    const { data } = api.invoice.getTemplates.useQuery({ userId: userId as string });
+    const utils = api.useUtils();
 
+    // templates
+    const { data: templates } = api.invoice.getTemplates.useQuery({ userId: userId as string });
+    const { data: invoices } = api.invoice.getinvoices.useQuery({ userId: userId as string });
+
+    console.log(invoices);
+
+    const { mutate: deleteTemplate } = api.invoice.deleteTemplateById.useMutation({
+        onSuccess: () => {
+            utils.invoice.getTemplates.invalidate();
+        }
+    });
+
+    const { mutate: deleteInvoice } = api.invoice.deleteinvoiceById.useMutation({
+        onSuccess: () => {
+            utils.invoice.getinvoices.invalidate();
+        }
+    });
+
+    const EmptyTable = () => {
+        return (
+            <div className="grid justify-center text-gray-400">
+                <div className=" py-4 flex justify-center">
+                    <Cat className="h-16 w-16" />
+                </div>
+                <h1 className="text-xl font-heading">
+                    There is nothing here!
+                </h1>
+            </div>
+        )
+    }
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-                <nav className="flex flex-col items-center gap-4 px-2 py-4">
-                    <Link
-                        href="#"
-                        className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-                    >
-                        <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-                        <span className="sr-only">Acme Inc</span>
-                    </Link>
+                <nav className="flex flex-col items-center gap-7 px-2 py-6">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
                                     href="#"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                                    className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
                                 >
                                     <Home className="h-5 w-5" />
                                     <span className="sr-only">Dashboard</span>
@@ -118,7 +145,6 @@ export default function Dashboard() {
                             <TooltipTrigger asChild>
                                 <Link
                                     href="#"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Package className="h-5 w-5" />
                                     <span className="sr-only">Products</span>
@@ -130,7 +156,6 @@ export default function Dashboard() {
                             <TooltipTrigger asChild>
                                 <Link
                                     href="#"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Users2 className="h-5 w-5" />
                                     <span className="sr-only">Customers</span>
@@ -142,7 +167,6 @@ export default function Dashboard() {
                             <TooltipTrigger asChild>
                                 <Link
                                     href="#"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <LineChart className="h-5 w-5" />
                                     <span className="sr-only">Analytics</span>
@@ -231,18 +255,8 @@ export default function Dashboard() {
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
-                                    <Link href="#">Dashboard</Link>
+                                    <Link href="/dashboard">Dashboard</Link>
                                 </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbLink asChild>
-                                    <Link href="#">Products</Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>All Products</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -271,38 +285,13 @@ export default function Dashboard() {
                                 <TabsTrigger value="history">history</TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-2">
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant="outline" size="sm" className="h-7 gap-1">
-                                            <ListFilter className="h-3.5 w-3.5" />
-                                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                                Filter
-                                            </span>
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                        <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuCheckboxItem checked>
-                                            Active
-                                        </DropdownMenuCheckboxItem>
-                                        <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                                        <DropdownMenuCheckboxItem>
-                                            Archived
-                                        </DropdownMenuCheckboxItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                                <Button size="sm" variant="outline" className="h-7 gap-1">
-                                    <File className="h-3.5 w-3.5" />
-                                    <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                        Export
-                                    </span>
-                                </Button>
                                 <Button size="sm" className="h-7 gap-1">
                                     <PlusCircle className="h-3.5 w-3.5" />
-                                    <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                        Add Product
-                                    </span>
+                                    <Link href={"/invoice"}>
+                                        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                                            Add Invoice
+                                        </span>
+                                    </Link>
                                 </Button>
                             </div>
                         </div>
@@ -318,225 +307,58 @@ export default function Dashboard() {
                                     <Table>
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead>Name</TableHead>
-                                                <TableHead>Status</TableHead>
-                                                <TableHead>Price</TableHead>
+                                                <TableHead>From</TableHead>
+                                                <TableHead>To</TableHead>
+                                                <TableHead>Creation Date</TableHead>
                                                 <TableHead className="hidden md:table-cell">
-                                                    Total Sales
-                                                </TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Created at
-                                                </TableHead>
-                                                <TableHead>
-                                                    <span className="sr-only">Actions</span>
+                                                    Balance Due
                                                 </TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    Laser Lemonade Machine
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="outline">Draft</Badge>
-                                                </TableCell>
-                                                <TableCell>$499.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    25
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2023-07-12 10:42 AM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    Hypernova Headphones
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="outline">Active</Badge>
-                                                </TableCell>
-                                                <TableCell>$129.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    100
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2023-10-18 03:21 PM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    AeroGlow Desk Lamp
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="outline">Active</Badge>
-                                                </TableCell>
-                                                <TableCell>$39.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    50
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2023-11-29 08:15 AM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    TechTonic Energy Drink
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="secondary">Draft</Badge>
-                                                </TableCell>
-                                                <TableCell>$2.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    0
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2023-12-25 11:59 PM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    Gamer Gear Pro Controller
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="outline">Active</Badge>
-                                                </TableCell>
-                                                <TableCell>$59.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    75
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2024-01-01 12:00 AM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-medium">
-                                                    Luminous VR Headset
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Badge variant="outline">Active</Badge>
-                                                </TableCell>
-                                                <TableCell>$199.99</TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    30
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell">
-                                                    2024-02-14 02:14 PM
-                                                </TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                aria-haspopup="true"
-                                                                size="icon"
-                                                                variant="ghost"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                                <span className="sr-only">Toggle menu</span>
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
+
+                                            {invoices?.length == 0 &&
+                                                <TableRow>
+                                                    <TableCell colSpan={4}>
+                                                        <EmptyTable />
+                                                    </TableCell>
+                                                </TableRow>
+                                            }
+                                            {invoices?.map(invoice => {
+                                                return (
+                                                    <TableRow key={invoice.id}>
+                                                        <TableCell className="font-medium">
+                                                            {invoice.from}
+                                                        </TableCell>
+                                                        <TableCell>{invoice.to}</TableCell>
+                                                        <TableCell className="hidden md:table-cell">
+                                                            {formatDate(invoice.createdAt)}
+                                                        </TableCell>
+                                                        <TableCell className="hidden md:table-cell">
+                                                            {invoice.currency}{" "}{invoice.balance_due.toFixed(2)}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <DropdownMenu>
+                                                                <DropdownMenuTrigger asChild>
+                                                                    <Button
+                                                                        aria-haspopup="true"
+                                                                        size="icon"
+                                                                        variant="ghost"
+                                                                    >
+                                                                        <MoreHorizontal className="h-4 w-4" />
+                                                                        <span className="sr-only">Toggle menu</span>
+                                                                    </Button>
+                                                                </DropdownMenuTrigger>
+                                                                <DropdownMenuContent align="end">
+                                                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                    <DropdownMenuItem onClick={() => { deleteInvoice({ invoiceId: invoice.id }) }}>Delete</DropdownMenuItem>
+                                                                </DropdownMenuContent>
+                                                            </DropdownMenu>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )
+                                            })}
                                         </TableBody>
                                     </Table>
                                 </CardContent>
@@ -551,74 +373,45 @@ export default function Dashboard() {
                         <TabsContent value="templates">
                             <Card x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
-                                    <CardTitle>Invoices</CardTitle>
+                                    <CardTitle>Templates</CardTitle>
                                     <CardDescription>
                                         Manage your invoice history and templates.
                                     </CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead>Name</TableHead>
-                                                <TableHead>Status</TableHead>
-                                                <TableHead>Price</TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Total Sales
-                                                </TableHead>
-                                                <TableHead className="hidden md:table-cell">
-                                                    Created at
-                                                </TableHead>
-                                                <TableHead>
-                                                    <span className="sr-only">Actions</span>
-                                                </TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {
-                                                data?.map(template => {
-                                                    return (
-                                                        <TableRow>
-                                                            <TableCell className="font-medium">
-                                                                {template.name}
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Badge variant="destructive">Draft</Badge>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                {template.updatedAt.getFullYear()}
-                                                            </TableCell>
-                                                            <TableCell className="hidden md:table-cell">
-                                                                25
-                                                            </TableCell>
-                                                            <TableCell className="hidden md:table-cell">
-                                                                {template.createdAt.getFullYear()}
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <DropdownMenu>
-                                                                    <DropdownMenuTrigger asChild>
-                                                                        <Button
-                                                                            aria-haspopup="true"
-                                                                            size="icon"
-                                                                            variant="ghost"
-                                                                        >
-                                                                            <MoreHorizontal className="h-4 w-4" />
-                                                                            <span className="sr-only">Toggle menu</span>
-                                                                        </Button>
-                                                                    </DropdownMenuTrigger>
-                                                                    <DropdownMenuContent align="end">
-                                                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                                                                    </DropdownMenuContent>
-                                                                </DropdownMenu>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    )
-                                                })
-                                            }
-                                        </TableBody>
-                                    </Table>
+                                <CardContent className="space-y-3">
+                                    {invoices?.length == 0 && <EmptyTable />}
+                                    {templates?.map(template => {
+                                        return (
+                                            <Alert key={template.id} className="flex items-center justify-between">
+                                                <PinIcon className="h-5 w-5" />
+                                                <div className="">
+                                                    <AlertTitle>{template.name}</AlertTitle>
+                                                    <AlertDescription>Created at :{formatDate(template.updatedAt)}</AlertDescription>
+                                                </div>
+                                                <div className="justify-self-end">
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger asChild>
+                                                            <Button
+                                                                aria-haspopup="true"
+                                                                size="icon"
+                                                                variant="ghost"
+                                                            >
+                                                                <MoreHorizontal className="h-4 w-4" />
+                                                                <span className="sr-only">Toggle menu</span>
+                                                            </Button>
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent align="end">
+                                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                            <Link href={`/invoice?templateId=${template.id}`}><DropdownMenuItem>Use</DropdownMenuItem></Link>
+                                                            <Link href={"/"}><DropdownMenuItem>Edit</DropdownMenuItem></Link>
+                                                            <DropdownMenuItem onClick={() => { deleteTemplate({ templateId: template.id }) }}>Delete</DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
+                                                </div>
+                                            </Alert>
+                                        )
+                                    })}
+
                                 </CardContent>
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground">

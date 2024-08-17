@@ -5,8 +5,7 @@ const invoiceLayout = async ({
 }: {
     children: React.ReactNode;
 }) => {
-    await sync("invoice");
-
+    
     return (
         <>
             {children}

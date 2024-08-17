@@ -65,3 +65,12 @@ export const recalculatTotal = ({ getValues, setValue, index }: recalculatTotalP
   setValue("balance", total - amount_paid)
 
 }
+
+// date formatting
+export function formatDate(date : Date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth() returns month from 0-11, so add 1
+  const day = date.getDate();
+
+  return `${year}/${month}/${day}`;
+}

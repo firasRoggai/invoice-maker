@@ -25,6 +25,10 @@ model User {
 
 model Invoice {
     id          Int      @id @default(autoincrement())
+    from        String
+    to          String
+    balance_due Int
+    currency    String
     invoiceData Json
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
